@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐱 JFA - Portfolio</title>
+    <style>
+
+.circle {
+  --circle-size: 40px;
+  position: fixed;
+  height: var(--circle-size);
+  width: var(--circle-size);
+  border: 1px solid white;
+  border-radius: 100%;
+  top: calc(var(--circle-size) / 2 * -1);
+  left: calc(var(--circle-size) / 2 * -1);
+  pointer-events: none;
+}
+        @font-face {
+            font-family: "Inter";
+            src: url("https://framerusercontent.com/assets/5vvr9Vy74if2I6bQbJvbw7SY1pQ.woff2");
+            font-display: swap;
+            font-style: normal;
+            font-weight: 400;
+        }
+
+        @font-face {
+            font-family: "Inter";
+            src: url("https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuBWYAZ9hiA.woff2");
+            font-display: swap;
+            font-style: normal;
+            font-weight: 900;
+        }
+
+        @font-face {
+            font-family: "JetBrains Mono";
+            src: url("https://framerusercontent.com/third-party-assets/fontshare/wf/TZ2PMVPWEVHUPJWOPNSWLOXAF6QPOEMZ/O4OZKA7ZLZGT4JOGT5IEKURK6U3RXYGM/EO5MKE3BUDOZN44BP4HDPXAJAC2BIMCD.woff2");
+            font-display: swap;
+            font-style: normal;
+            font-weight: 400;
+        }
+
+        @font-face {
+            font-family: "Inter Tight Placeholder";
+            src: local("Arial");
+            ascent-override: 99.65%;
+            descent-override: 24.81%;
+            line-gap-override: 0.00%;
+            size-adjust: 97.21%;
+        }
+
+        @font-face {
+            font-family: "Inter Placeholder";
+            src: local("Arial");
+            ascent-override: 89.79%;
+            descent-override: 22.36%;
+            line-gap-override: 0.00%;
+            size-adjust: 107.89%;
+        }
+
+        @font-face {
+            font-family: "JetBrains Mono Placeholder";
+            src: local("Arial");
+            ascent-override: 77.57%;
+            descent-override: 22.82%;
+            line-gap-override: 0.00%;
+            size-adjust: 131.49%;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 24px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-logo {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #999;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            padding: 120px 40px 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero-top {
+            display: flex;
+            align-items: flex-start;
+            gap: 24px;
+            margin-bottom: 60px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .hero-intro {
+            font-family: "JetBrains Mono", monospace;
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #ccc;
+            max-width: 500px;
+        }
+
+        /* Banner Image */
+        .hero-banner {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto 5px;
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            animation: fadeInScale 1s ease-out 0.3s backwards;
+        }
+
+        .banner-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .banner-placeholder {
+            position: absolute;
+            inset: 0;
+            background: 
+                linear-gradient(45deg, rgba(255,255,255,0.03) 25%, transparent 25%),
+                linear-gradient(-45deg, rgba(255,255,255,0.03) 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, rgba(255,255,255,0.03) 75%),
+                linear-gradient(-45deg, transparent 75%, rgba(255,255,255,0.03) 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+        }
+
+        .banner-text {
+            position: absolute;
+            bottom: 40px;
+            right: 60px;
+            font-size: 5rem;
+            font-weight: 300;
+            color: rgba(255,255,255,0.9);
+            font-style: italic;
+            text-shadow: 2px 2px 20px rgba(0,0,0,0.3);
+        }
+
+        /* Title Section */
+        .hero-title {
+            max-width: 1200px;
+            margin: 0 auto;
+            animation: fadeInUp 0.8s ease-out 0.5s backwards;
+        }
+
+        .hero-title h1 {
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: 400;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero-title h1 .highlight {
+            font-weight: 900;
+        }
+
+        .hero-title h1 .muted {
+            color: #444;
+        }
+
+        /* Info Bar */
+        .info-bar {
+            max-width: 1200px;
+            margin: 60px auto 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 40px;
+            border-top: 1px solid #222;
+            animation: fadeIn 0.8s ease-out 0.7s backwards;
+        }
+
+        .info-item {
+            font-family: "JetBrains Mono", monospace;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .status-badge {
+            color: #4ade80;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        /* Experience Section */
+        .experience {
+            padding: 120px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 60px;
+        }
+
+        .experience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .experience-item {
+            padding: 32px;
+            background: #111;
+            border-radius: 16px;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .experience-item:hover {
+            transform: translateY(-4px);
+            background: #151515;
+        }
+
+        .experience-company {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .experience-role {
+            font-size: 1rem;
+            color: #888;
+            margin-bottom: 12px;
+        }
+
+        .experience-date {
+            font-size: 0.9rem;
+            color: #555;
+            font-family: "JetBrains Mono", monospace;
+        }
+
+        /* Skills Section */
+        .skills {
+            padding: 120px 40px;
+            background: #000;
+        }
+
+        .skills-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .skills .section-title {
+            color: #fff;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+        }
+
+        .skill-card {
+            padding: 40px;
+            background: #0a0a0a;
+            border: 1px solid #1a1a1a;
+            border-radius: 16px;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-4px);
+            border-color: #333;
+        }
+
+        .skill-number {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .skill-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .skill-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #888;
+        }
+
+        .skill-tools {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+
+        .tool-tag {
+            background: #111;
+            padding: 6px 14px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            color: #aaa;
+            font-family: "JetBrains Mono", monospace;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav {
+                padding: 20px 24px;
+            }
+
+            .nav-links {
+                gap: 24px;
+            }
+
+            .hero {
+                padding: 100px 24px 60px;
+            }
+
+            .hero-top {
+                flex-direction: column;
+            }
+
+            .banner-image {
+                height: 300px;
+            }
+
+            .banner-text {
+                font-size: 3rem;
+                bottom: 30px;
+                right: 30px;
+            }
+
+            .hero-title h1 {
+                font-size: 2.5rem;
+            }
+
+            .info-bar {
+                flex-direction: column;
+                gap: 16px;
+                align-items: flex-start;
+            }
+
+            .experience, .skills {
+                padding: 80px 24px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-logo">Jose Francisco Arce</div>
+        <ul class="nav-links">
+            <li><a href="#work">Experiencia</a></li>
+            <li><a href="#about">Habilidades</a></li>
+            <li><a href="#contact">Contacto</a></li>
+        </ul>
+    </nav>  
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-banner">
+                <div class="hero-top">
+                    <img src="https://avatars.githubusercontent.com/u/233451315?v=4" alt="Profile" class="hero-avatar">
+            <div class="hero-intro">
+                Backend Developer & Systems Engineer.<br>
+                Especializado en desarrollo backend, bases de datos y arquitectura de software.<br>
+                Apasionado por construir soluciones escalables y seguras usando Node.js, Docker, Kubernetes y Cloud.
+            </div>
+                </div>
+        </div>
+
+        <!-- Banner Image -->
+        <div class="hero-banner">
+            <div class="banner-image">
+                <!-- <div class="banner-placeholder"></div> -->
+                <img src="https://framerusercontent.com/images/sUQN9ZSGjn0hS9Ri7pMnpG0nRU.png?scale-down-to=2048&width=6336&height=1584"  class="banner-image">
+                <!-- <div class="banner-text">curious.</div> -->
+            </div>
+        </div>
+
+        <!-- Title -->
+        <div class="hero-title">
+            <h1>
+                <span class="highlight">Backend</span> <span class="muted">and</span><br>
+                <span class="highlight">Frontend</span>
+            </h1>
+        </div>
+
+        <!-- Info Bar -->
+        <div class="info-bar">
+            <div class="info-item">Perú</div>
+            <div class="info-item">_GMT-5</div>
+            
+            <div class="info-item status-badge">_OPEN TO WORK</div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <!-- Experience Section -->
+    <section class="experience" id="work">
+        <h2 class="section-title">Experiencia</h2>
+        <div class="experience-grid">
+            <div class="experience-item">
+                <div class="experience-company">Universidad César Vallejo</div>
+                <div class="experience-role">Ingeniería de Sistemas (Actualidad)</div>
+                <div class="experience-date">2022 - Actualidad</div>
+            </div>
+            <div class="experience-item">
+                <div class="experience-company">Proyectos Freelance</div>
+                <div class="experience-role">Backend Developer</div>
+                <div class="experience-date">2023 - 2025</div>
+            </div>
+            <div class="experience-item">
+                <div class="experience-company">Certificaciones</div>
+                <div class="experience-role">CC, LPIC-1, SQL Intermedio, Platzi Backend</div>
+                <div class="experience-date">2023 - 2025</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <!-- Skills Section -->
+    <section class="skills" id="about">
+        <div class="skills-container">
+            <h2 class="section-title">Habilidades y Herramientas</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-number">01</div>
+                    <div class="skill-name">Lenguajes & Frameworks</div>
+                    <div class="skill-description">Experiencia en Node.js, Express.js, Next.js, React, Python, Java y C#.</div>
+                    <div class="skill-tools">
+                        <span class="tool-tag">Node.js</span>
+                        <span class="tool-tag">Express.js</span>
+                        <span class="tool-tag">React</span>
+                        <span class="tool-tag">Next.js</span>
+                        <span class="tool-tag">Python</span>
+                        <span class="tool-tag">Java</span>
+                        <span class="tool-tag">C#</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-number">02</div>
+                    <div class="skill-name">Bases de Datos</div>
+                    <div class="skill-description">Gestión y optimización de bases de datos relacionales y NoSQL.</div>
+                    <div class="skill-tools">
+                        <span class="tool-tag">MySQL</span>
+                        <span class="tool-tag">PostgreSQL</span>
+                        <span class="tool-tag">MongoDB</span>
+                        <span class="tool-tag">SQL Server</span>
+                        <span class="tool-tag">Firebase</span>
+                        <span class="tool-tag">Supabase</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-number">03</div>
+                    <div class="skill-name">DevOps & Cloud</div>
+                    <div class="skill-description">Implementación de contenedores, orquestación y despliegue en la nube.</div>
+                    <div class="skill-tools">
+                        <span class="tool-tag">Docker</span>
+                        <span class="tool-tag">Kubernetes</span>
+                        <span class="tool-tag">AWS</span>
+                        <span class="tool-tag">GCP</span>
+                        <span class="tool-tag">Terraform</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-number">04</div>
+                    <div class="skill-name">Seguridad & Testing</div>
+                    <div class="skill-description">Pruebas unitarias, APIs seguras y buenas prácticas de ciberseguridad.</div>
+                    <div class="skill-tools">
+                        <span class="tool-tag">Jest</span>
+                        <span class="tool-tag">Mocha</span>
+                        <span class="tool-tag">Postman</span>
+                        <span class="tool-tag">JWT</span>
+                        <span class="tool-tag">OAuth2</span>
+                        <span class="tool-tag">OWASP</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-number">05</div>
+                    <div class="skill-name">Arquitectura</div>
+                    <div class="skill-description">Diseño de sistemas, APIs REST y microservicios escalables.</div>
+                    <div class="skill-tools">
+                        <span class="tool-tag">REST</span>
+                        <span class="tool-tag">GraphQL</span>
+                        <span class="tool-tag">Microservicios</span>
+                        <span class="tool-tag">System Design</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <!-- Contact Section -->
+    <section class="skills" id="contact">
+        <div class="skills-container">
+            <h2 class="section-title">Contacto</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-name">Email</div>
+                    <div class="skill-description">josefrancisco.dev@gmail.com</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-name">GitHub</div>
+                    <div class="skill-description"><a href="https://github.com/josefranciscodeveloper" target="_blank" style="color:#fff;">github.com/josefranciscodeveloper</a></div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-name">LinkedIn</div>
+                    <div class="skill-description"><a href="https://linkedin.com/in/josefranciscoarce" target="_blank" style="color:#fff;">linkedin.com/in/josefranciscoarce</a></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scroll animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.experience-item, .skill-card').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        });
+
+        /**
+ * YouTube Tutorial:
+ * https://youtu.be/wG_5453Vq98
+ */
+
+console.clear();
+
+// Initialize custom cursor after DOM content has loaded to ensure the element exists
+document.addEventListener('DOMContentLoaded', () => {
+    // Select the circle element
+    const circleElement = document.querySelector('.circle');
+    if (!circleElement) return; // Safe-guard: exit if the element is not present
+
+    // Create objects to track mouse position and custom cursor position
+    const mouse = { x: 0, y: 0 }; // Track current mouse position
+    const previousMouse = { x: 0, y: 0 } // Store the previous mouse position
+    const circle = { x: 0, y: 0 }; // Track the circle position
+
+    // Initialize variables to track scaling and rotation
+    let currentScale = 0; // Track current scale value
+    let currentAngle = 0; // Track current angle value
+
+    // Update mouse position on the 'mousemove' event
+    window.addEventListener('mousemove', (e) => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+    });
+
+    // Smoothing factor for cursor movement speed (0 = smoother, 1 = instant)
+    const speed = 0.17;
+
+    // Start animation
+    const tick = () => {
+        // MOVE
+        // Calculate circle movement based on mouse position and smoothing
+        circle.x += (mouse.x - circle.x) * speed;
+        circle.y += (mouse.y - circle.y) * speed;
+        // Create a transformation string for cursor translation
+        const translateTransform = `translate(${circle.x}px, ${circle.y}px)`;
+
+        // SQUEEZE
+        // 1. Calculate the change in mouse position (deltaMouse)
+        const deltaMouseX = mouse.x - previousMouse.x;
+        const deltaMouseY = mouse.y - previousMouse.y;
+        // Update previous mouse position for the next frame
+        previousMouse.x = mouse.x;
+        previousMouse.y = mouse.y;
+        // 2. Calculate mouse velocity using Pythagorean theorem and adjust speed
+        const mouseVelocity = Math.min(Math.sqrt(deltaMouseX**2 + deltaMouseY**2) * 4, 150);
+        // 3. Convert mouse velocity to a value in the range [0, 0.5]
+        const scaleValue = (mouseVelocity / 150) * 0.5;
+        // 4. Smoothly update the current scale
+        currentScale += (scaleValue - currentScale) * speed;
+        // 5. Create a transformation string for scaling
+        const scaleTransform = `scale(${1 + currentScale}, ${1 - currentScale})`;
+
+        // ROTATE
+        // 1. Calculate the angle using the atan2 function
+        const angle = Math.atan2(deltaMouseY, deltaMouseX) * 180 / Math.PI;
+        // 2. Check for a threshold to reduce shakiness at low mouse velocity
+        if (mouseVelocity > 20) {
+            currentAngle = angle;
+        }
+        // 3. Create a transformation string for rotation
+        const rotateTransform = `rotate(${currentAngle}deg)`;
+
+        // Apply all transformations to the circle element in a specific order: translate -> rotate -> scale
+        circleElement.style.transform = `${translateTransform} ${rotateTransform} ${scaleTransform}`;
+
+        // Request the next frame to continue the animation
+        window.requestAnimationFrame(tick);
+    }
+
+    // Start the animation loop
+    tick();
+});
+    </script>
+    <div class="circle"></div>
+</body>
+</html>
